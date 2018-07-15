@@ -1,0 +1,10 @@
+FROM linnil1/serverbox:learn1.0
+USER ubuntu
+ENV HOME /home/ubuntu
+WORKDIR "/home/ubuntu"
+#RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime && \
+#    sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+USER root
+CMD ["/usr/sbin/sshd", "-D"]
+EXPOSE 22

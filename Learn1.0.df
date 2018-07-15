@@ -1,0 +1,5 @@
+FROM linnil1/serverbox:base1.0
+RUN pip3 --no-cache-dir install --upgrade \
+         tensorflow-gpu \
+         http://download.pytorch.org/whl/cu91/torch-0.4.0-cp35-cp35m-linux_x86_64.whl \
+         torchvision
