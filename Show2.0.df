@@ -1,0 +1,27 @@
+FROM linnil1/serverbox:learn1.0
+
+RUN apt update -y && \
+    apt install -y --no-install-recommends \
+                gnome-panel \
+                metacity \
+                pcmanfm \
+                gnome-terminal \
+                ubuntu-desktop \
+                vnc4server && \
+    apt remove -y nautilus
+
+RUN service ssh start
+COPY Show2.0/.vnc/ /home/ubuntu/.vnc/
+COPY Show2.0/start.sh /home/ubuntu/.startup.sh
+
+USER root
+RUN chown -R ubuntu:ubuntu /home/ubuntu/.vnc/
+
+USER ubuntu
+ENV HOME /home/ubuntu
+WORKDIR "/home/ubuntu"
+#RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime && \
+#    sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+CMD ["bash", "/home/ubuntu/.startup.sh"]
+EXPOSE 22 5900
