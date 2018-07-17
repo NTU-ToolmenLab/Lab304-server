@@ -49,7 +49,7 @@ RUN pip3 install --disable-pip-version-check pip==9.0.3 && \
          pandas \
          ipython \
          six \
-         scipy \ 
+         scipy \
          jupyter \
          python-dateutil \
          virtualenv \
@@ -68,6 +68,6 @@ RUN useradd -ms /bin/bash ubuntu && \
 ENV PATH=/usr/local/nvidia/bin/:$PATH
 RUN chown -R ubuntu:ubuntu /home/ubuntu/ && \
     echo "X11UseLocalhost no" >> /etc/ssh/sshd_config && \
-    echo "export PATH=$PATH" >> /etc/profile && \ 
+    echo "export PATH=$PATH" >> /etc/profile && \
     echo "export PATH=$PATH" >> /home/ubuntu/.bashrc
 # https://github.com/NVIDIA/nvidia-docker/issues/36

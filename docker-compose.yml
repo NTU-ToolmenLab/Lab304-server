@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  guest101:
+    devices:
+    - /dev/nvidia0
+    - /dev/nvidia1
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+    - /dev/nvidia-uvm-tools
+    image: linnil1/serverbox:show2.0
+    networks:
+      mynet:
+        ipv4_address: 172.18.0.101
+    volumes:
+    - ./allhome/guest101:/home/ubuntu
+    - nvidia_driver_375.66:/usr/local/nvidia:ro
+
+  piper:
+    image: farmer1992/sshpiperd
+    networks:
+      mynet:
+        ipv4_address: 172.18.0.100
+    ports:
+    - 2222:2222
+    restart: always
+    volumes:
+    - ./ssh_redir:/var/sshpiper
+
+volumes:
+  nvidia_driver_375.66:
+    external: true
+
+networks:
+  mynet:
+    external:
+      name: dockercompose_mynet

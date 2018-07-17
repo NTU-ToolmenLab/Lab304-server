@@ -12,10 +12,7 @@ tag:
 
 If you want to build `Base1.0.df`
 
-```
-cp Base1.0.df Dockerfile
-docker build . -t linnil1/serverbox:base1.0
-```
+`docker build -f Base1.0.df . -t linnil1/serverbox:base1.0`
 
 and so on.
 
@@ -29,3 +26,17 @@ You can git clone https://github.com/novnc/noVNC to test
 
 Use pcmanfm
 https://wiki.lxde.org/en/PCManFM
+
+### Modify password with sha512 hash code
+`$ perl -p -i -e 's/(linnil1:).*?(:.+)/\1xxx\2/g' /etc/shadow`
+
+if you use in python, take care for special character '/$.'
+
+``` python
+pwd = pw.replace(r'/', r'\/').replace('$',r'\$')                                                                                                                   
+container.exec_run(r'perl -p -i -e "s/(ubuntu:).*?(:.+)/\1' + pwd + r'\2/g" /etc/shadow')
+````
+
+### docker compose
+When you resume all container, please use `docker-compose up --no-recreate -d`.
+

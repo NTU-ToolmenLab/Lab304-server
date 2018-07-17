@@ -8,5 +8,5 @@ if [[ -e /home/ubuntu/.vnc/*.pid && -e /home/ubuntu/.vnc/*.log ]]; then
 fi
 
 # run 
-echo ubuntu | sudo -S service ssh start
-vncserver :0 && tail -f /home/ubuntu/.vnc/*.log 
+service ssh start
+su ubuntu sh -c 'vncserver :0 && tail -f /home/ubuntu/.vnc/*.log'

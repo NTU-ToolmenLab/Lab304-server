@@ -10,11 +10,10 @@ RUN apt update -y && \
                 vnc4server && \
     apt remove -y nautilus
 
-RUN service ssh start
+RUN apt install -y firefox
+
 COPY Show2.0/.vnc/ /home/ubuntu/.vnc/
 COPY Show2.0/start.sh /home/ubuntu/.startup.sh
-
-USER root
 RUN chown -R ubuntu:ubuntu /home/ubuntu/.vnc/
 
 USER ubuntu
@@ -23,5 +22,6 @@ WORKDIR "/home/ubuntu"
 #RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime && \
 #    sh ~/.vim_runtime/install_awesome_vimrc.sh
 
+USER root
 CMD ["bash", "/home/ubuntu/.startup.sh"]
 EXPOSE 22 5900
