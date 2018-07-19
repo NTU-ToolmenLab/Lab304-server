@@ -40,3 +40,47 @@ container.exec_run(r'perl -p -i -e "s/(ubuntu:).*?(:.+)/\1' + pwd + r'\2/g" /etc
 ### docker compose
 When you resume all container, please use `docker-compose up --no-recreate -d`.
 
+## Run with docker-compose
+
+1. copy user in dockercompose
+```
+  guest102: # Change user name
+    devices:
+    - /dev/nvidia0 # first GPU
+    - /dev/nvidia1 # second GPU
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+    - /dev/nvidia-uvm-tools
+    image: linnil1/serverbox:show2.0
+    networks:
+      mynet:
+        ipv4_address: 172.18.0.1 # you can use static ip or not
+    volumes:
+    - ./allhome/guest102:/home/ubuntu # Chnage name
+    - nvidia_driver_375.66:/usr/local/nvidia:ro # GPU driver version
+```
+
+2. copy defalut home to user's home
+remember to create `.vnc/passwd` which is vnc password
+```
+cp ./allhome/guest101 -r /home/guest102
+chown -R 1000:1000 /home/guest102
+```
+
+3. Add user data into database in LabServer
+```
+your.domain.name/adminpage
+add user and add container
+```
+or see README in LabServer
+
+4. Ask newuser to change password
+
+5. Ask newuser to login NextCloud
+
+6. Add data sharing of nextcloud
+* goto `Settings > External storages` to add permission
+* goto `Users` to add newuser to new group
+
+7. If you somehow stop containers, 
+please use `docker-compose up --no-recreate -d` to continue
