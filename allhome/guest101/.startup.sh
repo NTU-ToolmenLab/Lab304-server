@@ -10,4 +10,4 @@ fi
 # run 
 service ssh start
 ldconfig
-su ubuntu sh -c 'vncserver :0 && tail -f /home/ubuntu/.vnc/*.log'
+su ubuntu sh -c 'vncserver :0 -geometry 1280x720 && tail -f /home/ubuntu/.vnc/*.log'

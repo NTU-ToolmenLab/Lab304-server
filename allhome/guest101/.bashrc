@@ -116,3 +116,4 @@ if ! shopt -oq posix; then
   fi
 fi
 export PATH=/usr/local/nvidia/bin/:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+alias rm="rm -i"
