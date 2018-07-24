@@ -48,7 +48,7 @@ When you resume all container, please use `docker-compose up --no-recreate -d`.
 
 ## Run with docker-compose
 
-1. copy user in dockercompose
+1. modify user in dockercompose
 ```
   guest102: # Change user name
     devices:
@@ -62,16 +62,22 @@ When you resume all container, please use `docker-compose up --no-recreate -d`.
       mynet:
         ipv4_address: 172.18.0.1 # you can use static ip or not
     volumes:
-    - ./allhome/guest102:/home/ubuntu # Chnage name
+    - ./default_home/guest102:/home/ubuntu # Chnage name
     - nvidia_driver_375.66:/usr/local/nvidia:ro # GPU driver version
 ```
 
 2. copy defalut home to user's home
 remember to create `.vnc/passwd` which is vnc password
+use `vnc4passwd` to generate
 ```
-cp ./allhome/guest101 -r /home/guest102
+cp ./default_home/guest101 -r /home/guest102
 chown -R 1000:1000 /home/guest102
+mkdir -p ssh_redir/guest102
+echo "user@ip" > ssh_redir/guest102/sshpiper_upstream
 ```
+
+2.1 
+or just call `./manage.sh` to build up all things
 
 3. Add user data into database in LabServer
 ```
