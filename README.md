@@ -6,6 +6,7 @@ tag:
 * Base1.0: cuda9.1 cudnn7 20180715
 * Learn1.0: Base1.0 TF1.9.0  torch0.4
 * Show1.0: Learn1.0 + User
+* Show1.1: Learn1.0 + User (Update)
 * Show2.0: Learn1.0 + User + VNC + gnome + pcmanfm
 
 ## Build
@@ -17,6 +18,11 @@ If you want to build `Base1.0.df`
 and so on.
 
 ## Some building Details
+
+### allhome
+In dockercompose file,
+
+this is use for make a safer place for API connected from outside.
 
 ### Show2.0
 This is base on https://www.linode.com/docs/applications/remote-desktop/install-vnc-on-ubuntu-16-04/

@@ -69,5 +69,7 @@ ENV PATH=/usr/local/nvidia/bin/:$PATH
 RUN chown -R ubuntu:ubuntu /home/ubuntu/ && \
     echo "X11UseLocalhost no" >> /etc/ssh/sshd_config && \
     echo "export PATH=$PATH" >> /etc/profile && \
-    echo "export PATH=$PATH" >> /home/ubuntu/.bashrc
+    echo "alias rm='rm -i'" >> /etc/profile && \
+    echo "export PATH=$PATH" >> /home/ubuntu/.bashrc && \
+    echo "alias rm='rm -i'" >> /home/ubuntu/.bashrc
 # https://github.com/NVIDIA/nvidia-docker/issues/36

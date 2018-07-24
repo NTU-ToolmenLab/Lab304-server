@@ -16,6 +16,21 @@ services:
     - ./allhome/guest101:/home/ubuntu
     - nvidia_driver_375.66:/usr/local/nvidia:ro
 
+  allhome:
+    devices:
+    - /dev/nvidia0
+    - /dev/nvidia1
+    - /dev/nvidiactl
+    - /dev/nvidia-uvm
+    - /dev/nvidia-uvm-tools
+    image: linnil1/serverbox:show1.1
+    ports:
+    - "100:22"
+    - "100-200:100-200"
+    volumes:
+    - /home/allhome:/home
+    - nvidia_driver_375.66:/usr/local/nvidia:ro
+
   piper:
     image: farmer1992/sshpiperd
     networks:
