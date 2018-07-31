@@ -15,6 +15,7 @@ def getusers():
     for user in users:
         if user not in ['allhome', 'piper']:
             target_users.append(user)
+    print(target_users)
     return target_users
 
 
@@ -39,7 +40,7 @@ def setIP(users):
         sshfolder = ssh_redir + user + '/'
         shutil.rmtree(sshfolder)
 
-def setHOME(users):
+def setHOME(users, replace=False):
     for user in users:
         useryml = yml['services'][user]
         volume = ""
@@ -49,7 +50,9 @@ def setHOME(users):
         if not volume:
             raise IndexError
 
-        # volume = "/app/home/" + user + '/'
+        if not replace and os.path.exists(volume):
+            continue
+
         os.makedirs(volume, exist_ok=True)
         os.chown(volume, 1000, 1000)
 

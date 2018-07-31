@@ -3,11 +3,15 @@
 ## versions
 name: linnil1/serverbox
 tag:
-* Base1.0: cuda9.1 cudnn7 20180715
-* Learn1.0: Base1.0 TF1.9.0  torch0.4
+* Base1.0: cuda9.1 + cudnn7 (20180715)
+* Learn1.0: Base1.0 + TF1.9.0 + torch0.4
 * Show1.0: Learn1.0 + User
 * Show1.1: Learn1.0 + User (Update)
 * Show2.0: Learn1.0 + User + VNC + gnome + pcmanfm
+
+* Base3.0: cuda9.0  + cudnn7 (20180731)
+* Show3.0: Base3.0 + User + VNC + gnome + pcmanfm
+* Learn3.0: Show3.0 + TF1.9.0 + torch0.4 + keras2.2.2
 
 ## Build
 
@@ -42,6 +46,10 @@ if you use in python, take care for special character '/$.'
 pwd = pw.replace(r'/', r'\/').replace('$',r'\$')                                                                                                                   
 container.exec_run(r'perl -p -i -e "s/(ubuntu:).*?(:.+)/\1' + pwd + r'\2/g" /etc/shadow')
 ````
+
+### Show3.0
+tenserflow 1.9 build at numpy 1.14
+so you need to downgrade numpy.
 
 ### docker compose
 When you resume all container, please use `docker-compose up --no-recreate -d`.

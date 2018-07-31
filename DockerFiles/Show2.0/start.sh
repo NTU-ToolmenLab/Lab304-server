@@ -9,4 +9,5 @@ fi
 
 # run 
 service ssh start
+ldconfig
 su ubuntu sh -c 'vncserver :0 && tail -f /home/ubuntu/.vnc/*.log'

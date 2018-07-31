@@ -1,0 +1,74 @@
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+
+MAINTAINER linnil1 <linnil1.886@gmail.com>
+
+ENV LANG en_US.UTF-8
+RUN apt update -y && \
+    apt install -y \
+    # main thing
+                vim-gtk \
+                tmux \
+                screen \
+                tree \
+                htop \
+                wget \
+                curl \
+                build-essential \
+                g++ \
+                git \
+                cmake \
+                unzip \
+                sudo \
+                openssh-server \
+                xorg \
+                openbox \
+    # python
+                python3-pip \
+                python-pip \
+                python3-dev \
+                python-dev \
+                python3-tk \
+                python-tk \
+                python3-numpy \
+                python-numpy \
+                python3-scipy \
+                python-scipy \
+    # maybe used
+                locales \
+                doxygen
+
+RUN locale-gen en_US.UTF-8
+
+RUN pip3 install --disable-pip-version-check pip==9.0.3 && \
+    pip3 --no-cache-dir install --upgrade \
+         matplotlib \
+         numpy \
+         scipy \
+         sympy \
+         pandas \
+         ipython \
+         six \
+         scipy \
+         jupyter \
+         python-dateutil \
+         virtualenv \
+         requests \
+         opencv-python \
+         Pillow \
+         sklearn \
+         scikit-learn \
+         scikit-image
+
+RUN useradd -ms /bin/bash ubuntu && \
+    echo "ubuntu:ubuntu" | chpasswd && \
+    adduser ubuntu sudo
+
+# modify
+ENV PATH=/usr/local/nvidia/bin/:$PATH
+RUN chown -R ubuntu:ubuntu /home/ubuntu/ && \
+    echo "X11UseLocalhost no" >> /etc/ssh/sshd_config && \
+    echo "export PATH=$PATH" >> /etc/profile && \
+    echo "alias rm='rm -i'" >> /etc/profile && \
+    echo "export PATH=$PATH" >> /home/ubuntu/.bashrc && \
+    echo "alias rm='rm -i'" >> /home/ubuntu/.bashrc
+# https://github.com/NVIDIA/nvidia-docker/issues/36
