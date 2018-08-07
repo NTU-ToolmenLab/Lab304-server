@@ -12,6 +12,7 @@ tag:
 * Base3.0: cuda9.0  + cudnn7 (20180731)
 * Show3.0: Base3.0 + User + VNC + gnome + pcmanfm
 * Learn3.0: Show3.0 + TF1.9.0 + torch0.4 + keras2.2.2
+* Show3.1: Base3.0 + ssh
 
 ## Build
 
@@ -104,3 +105,8 @@ or see README in LabServer
 
 7. If you somehow stop containers, 
 please use `docker-compose up --no-recreate -d` to continue
+
+## attension
+You need to set password of ubuntu by any methods.
+like `docker exec -it 2018summer_guest101_1 passwd ubuntu`
+

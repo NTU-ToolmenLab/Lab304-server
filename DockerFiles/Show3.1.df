@@ -1,0 +1,12 @@
+FROM linnil1/serverbox:base3.0
+
+COPY Show1.0/start.sh /home/ubuntu/.startup.sh
+USER ubuntu
+ENV HOME /home/ubuntu
+WORKDIR "/home/ubuntu"
+#RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime && \
+#    sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+USER root
+EXPOSE 22
+CMD ["bash", "/home/ubuntu/.startup.sh"]

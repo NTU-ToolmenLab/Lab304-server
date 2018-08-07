@@ -22,24 +22,18 @@ RUN apt update -y && \
                 openssh-server \
                 xorg \
                 openbox \
+                fonts-noto-cjk \
     # python
                 python3-pip \
-                python-pip \
                 python3-dev \
-                python-dev \
                 python3-tk \
-                python-tk \
-                python3-numpy \
-                python-numpy \
-                python3-scipy \
-                python-scipy \
     # maybe used
                 locales \
                 doxygen
 
 RUN locale-gen en_US.UTF-8
 
-RUN pip3 install --disable-pip-version-check pip==9.0.3 && \
+RUN python3 -m pip install --upgrade pip && \
     pip3 --no-cache-dir install --upgrade \
          matplotlib \
          numpy \
@@ -48,7 +42,6 @@ RUN pip3 install --disable-pip-version-check pip==9.0.3 && \
          pandas \
          ipython \
          six \
-         scipy \
          jupyter \
          python-dateutil \
          virtualenv \
@@ -57,10 +50,10 @@ RUN pip3 install --disable-pip-version-check pip==9.0.3 && \
          Pillow \
          sklearn \
          scikit-learn \
-         scikit-image
+         scikit-image \
+         decorator
 
 RUN useradd -ms /bin/bash ubuntu && \
-    echo "ubuntu:ubuntu" | chpasswd && \
     adduser ubuntu sudo
 
 # modify

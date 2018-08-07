@@ -12,6 +12,10 @@ RUN apt update -y && \
 
 RUN apt install -y firefox
 
+RUN add-apt-repository ppa:viktor-krivak/pycharm -y && \
+    apt update -y && \
+    apt install pycharm -y
+
 COPY Show2.0/.vnc/ /home/ubuntu/.vnc/
 COPY Show2.0/start.sh /home/ubuntu/.startup.sh
 RUN chown -R ubuntu:ubuntu /home/ubuntu/.vnc/
@@ -24,3 +28,4 @@ WORKDIR "/home/ubuntu"
 
 USER root
 EXPOSE 22 5900
+CMD ["bash", "/home/ubuntu/.startup.sh"]
