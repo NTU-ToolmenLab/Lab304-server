@@ -1,0 +1,50 @@
+FROM linnil1/serverbox:show3.0
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    git \
+    libgoogle-glog-dev \
+    libgtest-dev \
+    libiomp-dev \
+    libleveldb-dev \
+    liblmdb-dev \
+    libopencv-dev \
+    libopenmpi-dev \
+    libsnappy-dev \
+    libprotobuf-dev \
+    openmpi-bin \
+    openmpi-doc \
+    protobuf-compiler \
+    libgflags-dev \
+    unzip \
+    libzmq3-dev
+
+RUN pip3 install \
+    future \
+    numpy \
+    protobuf \
+    graphviz \
+    hypothesis \
+    ipython \
+    jupyter \
+    matplotlib \
+    notebook \
+    pydot \
+    python-nvd3 \
+    pyyaml \
+    requests \
+    scikit-image \
+    scipy
+
+ENV FULL_CAFFE2=1
+RUN git clone https://github.com/pytorch/pytorch.git /opt/pytorch && \
+    cd /opt/pytorch && \
+    git submodule update --init --recursive && \
+    python3 setup.py install && \
+    cd $HOME
+
+RUN rm /usr/local/lib/python3.5/dist-packages/caffe2/ -rf && \
+    ln -s /opt/pytorch/build/caffe2/ /usr/local/lib/python3.5/dist-packages/caffe2
+
+CMD ["bash", "/home/ubuntu/.startup.sh"]
