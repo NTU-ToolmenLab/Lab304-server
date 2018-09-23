@@ -12,6 +12,7 @@ tag:
 * Base3.0: cuda9.0  + cudnn7 (20180731)
 * Show3.0: Base3.0 + User + VNC + gnome + pcmanfm
 * Learn3.0: Show3.0 + TF1.9.0 + torch0.4 + keras2.2.2
+* Learn3.1: Show3.0 + Caffe2(2018/9/8) 
 * Show3.1: Base3.0 + ssh
 
 ## Build
