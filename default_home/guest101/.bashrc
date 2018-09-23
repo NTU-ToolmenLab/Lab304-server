@@ -117,6 +117,7 @@ if ! shopt -oq posix; then
 fi
 export PATH=/usr/local/nvidia/bin/:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export XDG_CURRENT_DESKTOP=ubuntu:GNOME
+export PYTHONPATH=/opt/pytorch/build:$PYTHONPATH
 
 alias rm="rm -i"
 alias python="python3"
