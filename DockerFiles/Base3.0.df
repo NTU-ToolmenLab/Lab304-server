@@ -35,8 +35,8 @@ RUN locale-gen en_US.UTF-8
 
 RUN python3 -m pip install --upgrade pip && \
     pip3 --no-cache-dir install --upgrade \
+         numpy==1.14 \
          matplotlib \
-         numpy \
          scipy \
          sympy \
          pandas \
