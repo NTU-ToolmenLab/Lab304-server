@@ -1,0 +1,10 @@
+FROM linnil1/serverbox:show3.3
+RUN pip3 install --upgrade \
+         torch==1.0.1 torchvision
+RUN pip3 install --upgrade \
+         tensorflow-gpu==1.13.0-rc1 \
+         keras==2.2.4
+
+# final
+RUN rm -rf /var/lib/apt/lists/*
+CMD ["bash", "/home/ubuntu/.startup.sh"]

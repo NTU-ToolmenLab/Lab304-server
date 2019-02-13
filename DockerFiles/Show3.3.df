@@ -1,0 +1,15 @@
+FROM linnil1/serverbox:base3.3
+
+RUN apt update -y && \
+    apt install -y --no-install-recommends \
+                gnome-panel \
+                metacity \
+                pcmanfm \
+                gnome-terminal \
+                ubuntu-desktop \
+                vnc4server \
+                firefox && \
+    apt remove -y nautilus
+
+CMD ["bash", "/home/ubuntu/.startup.sh"]
+EXPOSE 22 5900

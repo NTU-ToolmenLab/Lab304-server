@@ -12,7 +12,7 @@
 
 vncconfig nowin=1 &
 xsetroot -solid black
+XDG_CURRENT_DESKTOP=GNOME:ubuntu gnome-panel &
 pcmanfm &
-gnome-panel &
 metacity &
 gnome-terminal &
