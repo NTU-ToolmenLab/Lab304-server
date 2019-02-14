@@ -1,0 +1,94 @@
+FROM linnil1/serverbox:show3.3
+
+# python
+RUN apt update -y && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+                python-pip \
+                python-dev \
+                python-tk && \
+    python -m pip install --upgrade pip && \
+    pip --no-cache-dir install --upgrade \
+         numpy \
+         matplotlib \
+         scipy \
+         sympy \
+         pandas \
+         ipython \
+         six \
+         jupyter \
+         python-dateutil \
+         virtualenv \
+         requests \
+         opencv-python \
+         Pillow \
+         sklearn \
+         scikit-learn \
+         scikit-image \
+         decorator
+
+# caffe2
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    git \
+    libgflags-dev \
+    libgoogle-glog-dev \
+    libgtest-dev \
+    libiomp-dev \
+    libleveldb-dev \
+    liblmdb-dev \
+    libopencv-dev \
+    libopenmpi-dev \
+    libprotobuf-dev \
+    libsnappy-dev \
+    openmpi-bin \
+    openmpi-doc \
+    protobuf-compiler \
+    python-dev \
+    python-numpy \
+    python-pip \
+    python-pydot \
+    python-setuptools \
+    python-scipy \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir \
+    flask \
+    future \
+    graphviz \
+    hypothesis \
+    jupyter \
+    matplotlib \
+    numpy \
+    protobuf \
+    pydot \
+    python-nvd3 \
+    pyyaml \
+    requests \
+    scikit-image \
+    scipy \
+    setuptools \
+    six \
+    tornado \
+    typing
+
+# build caffe2
+RUN git clone --branch master --recursive https://github.com/pytorch/pytorch.git /opt/pytorch
+ENV FULL_CAFFE2=1
+ENV USE_LMDB=ON
+
+RUN cd /opt/pytorch && \
+    (python2 setup.py install || python2 setup.py install) && \
+    cd $HOME
+
+# build detectron
+RUN git clone https://github.com/facebookresearch/detectron /opt/detectron && \
+    cd /opt/detectron && \
+    pip install -r requirements.txt && \
+    make install && \
+    git clone https://github.com/cocodataset/cocoapi.git /opt/cocoapi && \
+    cd /opt/cocoapi/PythonAPI && \
+    make install

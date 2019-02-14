@@ -9,7 +9,13 @@ RUN apt update -y && \
                 ubuntu-desktop \
                 vnc4server \
                 firefox && \
-    apt remove -y nautilus
+    apt remove -y nautilus && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN add-apt-repository ppa:viktor-krivak/pycharm -y && \
+    apt update -y && \
+    apt install pycharm -y && \
+    rm -rf /var/lib/apt/lists/*
 
 CMD ["bash", "/home/ubuntu/.startup.sh"]
 EXPOSE 22 5900

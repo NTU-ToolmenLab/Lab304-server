@@ -1,6 +1,4 @@
-FROM linnil1/serverbox:show3.3
-
-# python basic
+# python
 RUN apt update -y && \
     apt install -y \
         python3-pip \
@@ -26,12 +24,3 @@ RUN apt update -y && \
          scikit-image \
          decorator && \
     rm -rf /var/lib/apt/lists/*
-
-RUN pip3 --no-cache-dir install --upgrade \
-         torch==1.0.1 torchvision
-RUN pip3 --no-cache-dir install --upgrade \
-         tensorflow-gpu==1.13.0-rc1 \
-         keras==2.2.4
-
-# Final
-CMD ["bash", "/home/ubuntu/.startup.sh"]
