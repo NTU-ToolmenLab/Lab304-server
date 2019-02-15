@@ -2,11 +2,10 @@ FROM linnil1/serverbox:show3.3
 
 # python
 RUN apt update -y && \
-    DEBIAN_FRONTEND=noninteractive \
     apt install -y \
-                python-pip \
-                python-dev \
-                python-tk && \
+         python-pip \
+         python-dev \
+         python-tk && \
     python -m pip install --upgrade pip && \
     pip --no-cache-dir install --upgrade \
          numpy \
@@ -25,7 +24,8 @@ RUN apt update -y && \
          sklearn \
          scikit-learn \
          scikit-image \
-         decorator
+         decorator && \
+    rm -rf /var/lib/apt/lists/*
 
 # caffe2
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -79,7 +79,6 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
 RUN git clone --branch master --recursive https://github.com/pytorch/pytorch.git /opt/pytorch
 ENV FULL_CAFFE2=1
 ENV USE_LMDB=ON
-
 RUN cd /opt/pytorch && \
     (python2 setup.py install || python2 setup.py install) && \
     cd $HOME
@@ -89,6 +88,16 @@ RUN git clone https://github.com/facebookresearch/detectron /opt/detectron && \
     cd /opt/detectron && \
     pip install -r requirements.txt && \
     make install && \
+    make && \
     git clone https://github.com/cocodataset/cocoapi.git /opt/cocoapi && \
     cd /opt/cocoapi/PythonAPI && \
-    make install
+    make install && \
+    cd $HOME
+
+# bug
+RUN apt update -y && \
+    pip uninstall opencv-python -y && \
+    pip install opencv-python==3.4.5.20 && \
+    sudo apt install -y libcanberra-gtk-module libcanberra-gtk3-module && \
+    sudo apt autoremove -y && \
+    rm -rf /var/lib/apt/lists/*

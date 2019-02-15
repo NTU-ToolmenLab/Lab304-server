@@ -178,11 +178,16 @@ fi
 
 # My docker ENV default
 export PATH=/usr/local/nvidia/bin/:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-export PYTHONPATH=/opt/pytorch/build:$PYTHONPATH
+
+## Only python2 contains detectron
+if [ -d /opt/detectron ] ; then
+    PYTHONPATH="/opt/detectron/detectron:$PYTHONPATH"
+else
+    alias python="python3"
+    alias pip="pip3"
+fi
 
 alias rm="rm -i"
-alias python="python3"
-alias pip="pip3"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -193,8 +198,20 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# include .bashrc if it exists
-if [ -f "$HOME/.bashrc" ]; then
-    . "$HOME/.bashrc"
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        . "$HOME/.bashrc"
+    fi
 fi
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi

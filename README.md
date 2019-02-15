@@ -22,8 +22,9 @@ tag:
 * Learn3.2: Show3.2 + Caffe2(2018/9/21)
 
 * Base3.3: cuda10.0 + cudnn7 + user(20190213)
-* Show3.3: Base3.3 + VNC + gnome + pcmanfm + firefox(20190213)
-* Learn3.3: Show3.3 + TF1.13-rc1 + Keras2.2.4 + Torch(20190213)
+* Show3.3: Base3.3 + VNC + gnome + pcmanfm + firefox + pycharm(20190214)
+* Learn3.3: Show3.3 + python3 + TF1.13-rc1 + Keras2.2.4 + Torch(20190214)
+* Learn3.4: Show3.3 + python2 + caffe2 + detectron(20190214)
 
 ## Build
 
