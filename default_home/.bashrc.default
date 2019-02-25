@@ -181,7 +181,7 @@ export PATH=/usr/local/nvidia/bin/:/usr/local/nvidia/bin:/usr/local/cuda/bin:/us
 
 ## Only python2 contains detectron
 if [ -d /opt/detectron ] ; then
-    PYTHONPATH="/opt/detectron/detectron:$PYTHONPATH"
+    PYTHONPATH="/opt/detectron:$PYTHONPATH"
 else
     alias python="python3"
     alias pip="pip3"
