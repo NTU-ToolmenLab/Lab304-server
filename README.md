@@ -27,6 +27,10 @@ tag:
 * Learn3.4: Show3.3 + python2 + caffe2 + detectron(20190214)
 * Learn3.5: Show3.3 + python3 + TF1.13.1 + Keras2.2.4 + Torch(20190214) + fastai_1.0.45 + sublime
 
+* Base3.6: cuda10.0 + cudnn7 + user(20190426)
+* Show3.6: Base3.6 + VNC + gnome-terminal + pcmanfm + firefox + pycharm + sublime + jupyter(20190426)
+* Learn3.6: Show3.6 + python3 + TF1.13.1 + Keras2.2.4 + Torch(20190426) + fastai1.0.51
+
 ## Build
 
 If you want to build `Base1.0.df`

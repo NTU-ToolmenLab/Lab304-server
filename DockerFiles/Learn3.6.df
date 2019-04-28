@@ -1,0 +1,42 @@
+FROM linnil1/serverbox:show3.6
+
+# python basic
+RUN apt update -y && \
+    apt install -y \
+        python3-pip \
+        python3-dev \
+        python3-tk && \
+    python3 -m pip install --upgrade pip && \
+    pip3 --no-cache-dir install --upgrade \
+         numpy \
+         scipy \
+         sympy \
+         pandas \
+         matplotlib \
+         Pillow \
+         six \
+         python-dateutil \
+         virtualenv \
+         requests \
+         opencv-python \
+         sklearn \
+         scikit-learn \
+         scikit-image \
+         tqdm \
+         ipython \
+         jupyter \
+         jupyterhub \
+         decorator && \
+    rm -rf /var/lib/apt/lists/*
+
+# powerful deep learning package
+RUN pip3 --no-cache-dir install --upgrade \
+         torch==1.0.1 torchvision
+RUN pip3 --no-cache-dir install --upgrade \
+         tensorflow-gpu==1.13.1 \
+         keras==2.2.4
+RUN pip3 --no-cache-dir install --upgrade \
+         fastai==1.0.51
+
+# Final
+CMD ["bash", "/home/ubuntu/.startup.sh"]

@@ -1,0 +1,49 @@
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+
+MAINTAINER linnil1 <linnil1.886@gmail.com>
+
+ENV LANG en_US.UTF-8
+RUN apt update -y && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt install -y \
+    # main thing
+        vim-gtk \
+        tmux \
+        screen \
+        tree \
+        htop \
+        wget \
+        curl \
+        build-essential \
+        g++ \
+        git \
+        cmake \
+        unzip \
+        sudo \
+        openssh-server \
+        xorg \
+        openbox \
+        fonts-noto-cjk \
+        libcanberra-gtk-module \
+        libcanberra-gtk3-module \
+        npm \
+        nodejs \
+    # maybe used
+        locales \
+        doxygen && \
+    npm install -g configurable-http-proxy && \
+    rm -rf /var/lib/apt/lists/*
+
+# locale and user
+RUN locale-gen en_US.UTF-8 && \
+    ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata && \
+    useradd -ms /bin/bash ubuntu && \
+    adduser ubuntu sudo && \
+    chown -R ubuntu:ubuntu /home/ubuntu/ && \
+    echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
+
+USER ubuntu
+ENV HOME /home/ubuntu
+WORKDIR "/home/ubuntu"
+USER root
