@@ -31,11 +31,16 @@ tag:
 * Show3.6: Base3.6 + VNC + gnome-terminal + pcmanfm + firefox + pycharm + sublime + jupyter(20190426)
 * Learn3.6: Show3.6 + python3 + TF1.13.1 + Keras2.2.4 + Torch(20190426) + fastai1.0.51
 
+* Base3.7: cuda10.2 + cudnn7 + user(20190918)
+* Show3.7: Base3.7 + VNC + gnome-terminal + pcmanfm + firefox + pycharm + sublime + jupyter
+* Learn3.7: Show3.7 + python3 + TF2.0.0rc1 + Keras2.2.5 + Torch1.2.0 + fastai1.0.57
+* Learn3.8: Show3.7 + python3 + TF2.1.0 + Keras2.3.1 + Torch1.4.0 + fastai1.0.60
+
 ## Build
 
 If you want to build `Base1.0.df`
 
-`docker build -f Base1.0.df . -t linnil1/serverbox:base1.0`
+`docker build -f Base1.0.df -t linnil1/serverbox:base1.0 .`
 
 and so on.
 
