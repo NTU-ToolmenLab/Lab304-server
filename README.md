@@ -35,6 +35,7 @@ tag:
 * Show3.7: Base3.7 + VNC + gnome-terminal + pcmanfm + firefox + pycharm + sublime + jupyter
 * Learn3.7: Show3.7 + python3 + TF2.0.0rc1 + Keras2.2.5 + Torch1.2.0 + fastai1.0.57
 * Learn3.8: Show3.7 + python3 + TF2.1.0 + Keras2.3.1 + Torch1.4.0 + fastai1.0.60
+* Learn3.6.5: Show3.7 + python3 + TF1.14.0 + Keras2.3.1 + Torch1.4.0 + nomacs
 
 ## Build
 
@@ -44,39 +45,15 @@ If you want to build `Base1.0.df`
 
 and so on.
 
-## Some building Details
-
-### Show2.0
-This is base on https://www.linode.com/docs/applications/remote-desktop/install-vnc-on-ubuntu-16-04/
-
-You can git clone https://github.com/novnc/noVNC to test
-`./utils/launch.sh --vnc your-container-ip:5900`
-
-Use pcmanfm
-https://wiki.lxde.org/en/PCManFM
-
-
-### Show3.0
-tenserflow 1.9 build at numpy 1.14
-so you need to downgrade numpy.
-
 
 ## Modify password with sha512 hash code
-`docker exec -it 2018summer_guest101_1 passwd ubuntu`
-
-or
-
-`$ perl -p -i -e 's/(linnil1:).*?(:.+)/\1xxx\2/g' /etc/shadow`
-
-if you use in python, take care for special character '/$.'
+`usermod -p "$5$xxx$ooo" ubuntu`
 
 ``` python
-pwd = pw.replace(r'/', r'\/').replace('$',r'\$')                                                                                                                   
-container.exec_run(r'perl -p -i -e "s/(ubuntu:).*?(:.+)/\1' + pwd + r'\2/g" /etc/shadow')
+container.exec_run('usermod -p "' + pw + '" ubuntu')
 ```
 
 ## HOME environment
-I put it at `default_home`.
+All environment file are at `default_home`, e.g. `.vimrc`, `.bashrc`.
 
-You can package it:
-`./pack.sh`
+Package it by `./pack.sh`, then unpack at HOMEDIR in docker by `tar xf all.tar`.
