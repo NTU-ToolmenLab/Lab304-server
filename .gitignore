@@ -1,5 +1,3 @@
-Dockerfile
 *.swp
 passwd
-ssh_redir
-!ssh_redir/guest101
+all.tar

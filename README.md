@@ -1,4 +1,4 @@
-# Lab304-server
+# Dockerfile
 
 This repo is only to store dockerfile and its environment.
 
@@ -46,14 +46,28 @@ If you want to build `Base1.0.df`
 and so on.
 
 
-## Modify password with sha512 hash code
-`usermod -p "$5$xxx$ooo" ubuntu`
+## Add password with sha512 hash code
+`usermod -p "$6$xxx$ooo" ubuntu`
 
 ``` python
 container.exec_run('usermod -p "' + pw + '" ubuntu')
 ```
 
-## HOME environment
-All environment file are at `default_home`, e.g. `.vimrc`, `.bashrc`.
+## Necessary file for $HOME
 
-Package it by `./pack.sh`, then unpack at HOMEDIR in docker by `tar xf all.tar`.
+All environment file are placed at `default_home`, e.g. `.vimrc`, `.bashrc`.
+
+### Add vnc password
+```
+docker run -it -v $PWD/default_home:/home/ubuntu -u 1000 --rm linnil1/serverbox:learn3.7 vnc4passwd
+```
+
+### Put all file together
+```
+cd default_home
+./pack.sh
+cd ..
+move default_home/all.tar ./all.tar
+```
+
+Thus, you can init any folder as homedir by `tar xf all.tar`.

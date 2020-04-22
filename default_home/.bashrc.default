@@ -188,6 +188,7 @@ else
 fi
 
 alias rm="rm -i"
+export CUDA_DEVICE_ORDER=PCI_BUS_ID
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
