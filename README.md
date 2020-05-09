@@ -25,17 +25,21 @@ tag:
 * Show3.3: Base3.3 + VNC + gnome + pcmanfm + firefox + pycharm(20190214)
 * Learn3.3: Show3.3 + python3 + TF1.13-rc1 + Keras2.2.4 + Torch(20190214)
 * Learn3.4: Show3.3 + python2 + caffe2 + detectron(20190214)
-* Learn3.5: Show3.3 + python3 + TF1.13.1 + Keras2.2.4 + Torch(20190214) + fastai_1.0.45 + sublime
+* Learn3.5: Show3.3 + python3 + TF1.13.1 + Keras2.2.4 + Torch(20190214) + fastai1.0.45 + sublime
 
 * Base3.6: cuda10.0 + cudnn7 + user(20190426)
 * Show3.6: Base3.6 + VNC + gnome-terminal + pcmanfm + firefox + pycharm + sublime + jupyter(20190426)
 * Learn3.6: Show3.6 + python3 + TF1.13.1 + Keras2.2.4 + Torch(20190426) + fastai1.0.51
 
-* Base3.7: cuda10.2 + cudnn7 + user(20190918)
+* Base3.7: cuda10.1 + cudnn7 + user(20190918)
 * Show3.7: Base3.7 + VNC + gnome-terminal + pcmanfm + firefox + pycharm + sublime + jupyter
 * Learn3.7: Show3.7 + python3 + TF2.0.0rc1 + Keras2.2.5 + Torch1.2.0 + fastai1.0.57
 * Learn3.8: Show3.7 + python3 + TF2.1.0 + Keras2.3.1 + Torch1.4.0 + fastai1.0.60
 * Learn3.6.5: Show3.7 + python3 + TF1.14.0 + Keras2.3.1 + Torch1.4.0 + nomacs
+
+* Base3.9: cuda10.2 + cudnn7 + user(20200509)
+* Show3.9: Base3.9 + VNC + gnome-terminal + pcmanfm + firefox + pycharm + sublime + jupyter
+* Learn3.9: Show3.7 + python3-packages + OPENCV4.3 + TF2.2.0 + Keras2.3.1 + Torch1.5.0 + fastai1.0.61
 
 ## Build
 

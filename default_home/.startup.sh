@@ -19,6 +19,7 @@ ldconfig
 hn=$(cat /etc/hostname)
 if [ -x "$(command -v jupyterhub)" ]; then
   mkdir -p .jupyter/$hn
+  chown ubuntu:ubuntu .jupyter
   chown ubuntu:ubuntu .jupyter/$hn
   su ubuntu sh -c "cd .jupyter/$hn && jupyterhub --url http://0.0.0.0:8000/jupyter/$hn --Spawner.notebook_dir=/home &"
 fi

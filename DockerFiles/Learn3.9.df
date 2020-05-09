@@ -1,0 +1,78 @@
+FROM linnil1/serverbox:show3.9
+
+# OPENCV
+ENV OPENCV_VERSION="4.3.0"
+RUN cd /opt \
+ && python3 -m pip install --upgrade pip \
+ && pip3 --no-cache-dir install --upgrade numpy \
+ && wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip \
+ && wget https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.zip -O ${OPENCV_VERSION}_contrib.zip \
+ && unzip ${OPENCV_VERSION}.zip \
+ && unzip ${OPENCV_VERSION}_contrib.zip \
+ && rm ${OPENCV_VERSION}.zip \
+ && rm ${OPENCV_VERSION}_contrib.zip \
+ && cd ./opencv-${OPENCV_VERSION} \
+ && mkdir build \
+ && cd build \
+ && cmake -DBUILD_TIFF=ON \
+          -DBUILD_opencv_java=OFF \
+          -DWITH_CUDA=ON \
+          -DWITH_OPENGL=ON \
+          -DWITH_OPENCL=ON \
+          -DWITH_IPP=ON \
+          -DWITH_TBB=ON \
+          -DWITH_EIGEN=ON \
+          -DWITH_V4L=ON \
+          -DBUILD_TESTS=OFF \
+          -DBUILD_PERF_TESTS=OFF \
+          -DCMAKE_BUILD_TYPE=RELEASE \
+          -DCMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
+          -DPYTHON_EXECUTABLE=$(which python3) \
+          -DPYTHON_INCLUDE_DIR=$(python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
+          -DPYTHON_PACKAGES_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
+	  -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
+    .. \
+ && make install -j8 \
+ && cd ~
+
+# Python3 package
+RUN apt update -y \
+ && apt install -y python3-gi-cairo \
+ && apt autoremove -y \
+ && rm -rf /var/lib/apt/lists/* \
+ && pip3 --no-cache-dir install --upgrade \
+	 setuptools \
+	 numpy \
+         scipy \
+         sympy \
+         pandas \
+         matplotlib \
+         Pillow \
+         six \
+         python-dateutil \
+         virtualenv \
+         requests \
+         # opencv-python \
+         sklearn \
+         scikit-learn \
+         scikit-image \
+         tqdm \
+         ipython \
+         jupyter \
+         jupyterhub \
+         statsmodels \
+         gym \
+         tensorboard \
+         decorator
+
+# powerful deep learning package
+RUN pip3 --no-cache-dir install --upgrade \
+         torch==1.5.0 torchvision==0.6.0
+RUN pip3 --no-cache-dir install --upgrade \
+         tensorflow-gpu==2.2.0 \
+         keras==2.3.1
+RUN pip3 --no-cache-dir install --upgrade \
+         fastai==1.0.60
+
+# Final
+CMD ["bash", "/home/ubuntu/.startup.sh"]
