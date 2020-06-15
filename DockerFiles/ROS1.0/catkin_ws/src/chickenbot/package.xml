@@ -1,0 +1,12 @@
+<package format="2">
+    <name>chickenbot</name>
+    <version>0.0.7</version>
+    <description>
+        This package provides chickenbot's configurations and launch scripts.
+    </description>
+    <maintainer email="kuo77122@gmail.com">Sam Kuo</maintainer>
+    <license>MIT</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <exec_depend>rospy</exec_depend>
+</package>

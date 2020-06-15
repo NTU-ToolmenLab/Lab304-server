@@ -1,0 +1,15 @@
+<launch>
+    <node pkg="chickenbot" name="motor_controller.py" type="motor_controller.py" output="screen">
+        <param name="arduino_protocol" value="i2c" />
+        <param name="arduino_addresss" value="4" />
+        <param name="turning_threshold" value="[1, 2]" />
+        <param name="speed_threshold" value="[1, 2]" />
+        <param name="bus_idx" value="1" />
+        <param name="cmd_vel_topic" value="/cmd_vel" />
+    </node>
+    <node pkg="teleop_twist_keyboard" name="teleop_twist_keyboard.py" type="teleop_twist_keyboard.py" output="screen">
+        <param name="cmd_vel" value="/cmd_vel" />
+        <param name="_speed" value="1" />
+        <param name="_turn" value="1" />
+    </node>
+</launch>

@@ -1,0 +1,6 @@
+<launch>
+
+  <!-- SIMULATION LIDAR SENSOR -->
+  <node pkg="fake_laser" type="fake_laser_node" name="fake_laser" output="screen"/>
+
+</launch>

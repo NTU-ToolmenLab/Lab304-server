@@ -1,0 +1,8 @@
+<launch>
+    <node pkg="chickenbot" name="rtls.py" type="rtls" output="screen">
+        <param name="server_url" value="http://192.168.49.3:5000/api/v1/tagPosition" />
+        <param name="query_rate" value="1" />
+        <param name="pose_topic" value="/rtls_pose" />
+        <param name="frame_id" value="rtls" />
+    </node>
+</launch>

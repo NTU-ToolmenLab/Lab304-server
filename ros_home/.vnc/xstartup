@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Uncomment the following two lines for normal desktop:
+# unset SESSION_MANAGER
+# exec /etc/X11/xinit/xinitrc
+
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+# vncconfig -iconic &
+# x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+# x-window-manager &
+
+vncconfig nowin=1 &
+xsetroot -solid black
+XDG_CURRENT_DESKTOP=GNOME:ubuntu gnome-panel &
+pcmanfm &
+metacity &
+gnome-terminal &
