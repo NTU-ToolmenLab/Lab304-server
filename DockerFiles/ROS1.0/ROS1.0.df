@@ -2,60 +2,70 @@ FROM ros:melodic-robot-bionic as base
 
 MAINTAINER Sunny <gsunny4178@gmail.com>
 
+# This Dockerfile is modified from https://github.com/fcwu/docker-ubuntu-vnc-desktop
+
 ENV ROS_DISTRO melodic
 
-RUN apt update -y && \
+# Install essential packages
+RUN apt update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
+    apt install --no-install-recommends -y \
     vim \
     nano \
-    screen \
+    tmux \
+    curl \
+    apache2-utils \
     locales \
     build-essential \
     wget \
+    net-tools \
+    unzip \
+    git \
+    sudo \
+    xz-utils \
+    gpg-agent \
+    supervisor \
     software-properties-common && \
     rm -rf /var/lib/apt/lists/*
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
 
-# Install dependencies
-RUN apt update -y && \
+# Install x11vnc and relatives
+RUN apt update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt install -y \
-    wget \
-    unzip \
-    git \
-    procps \
-    python \
-    python-numpy \
-    python-dev \
-    python-smbus && \
+    apt install --no-install-recommends -y \
+    zenity \
+    dbus-x11 \
+    x11-utils \
+    alsa-utils \
+    mesa-utils \
+    libgl1-mesa-dri \
+    xvfb \
+    x11vnc && \
     rm -rf /var/lib/apt/lists/*
 
+# Install the GUI
+RUN apt update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt install --no-install-recommends -y \
+    lxde \
+    gtk2-engines-murrine \
+    gnome-themes-standard \
+    gtk2-engines-pixbuf \
+    gtk2-engines-murrine \
+    arc-theme && \
+    rm -rf /var/lib/apt/lists/*
+    
 # Kill the bell!
 RUN echo "set bell-style none" >> /etc/inputrc
 
-# vnc, file explorer, Broswer
+# Install some applications
 RUN apt update -y && \
     DEBIAN_FRONTEND=noninteractive \
-    apt install -y --no-install-recommends \
-                gnome-panel \
-                metacity \
-                pcmanfm \
-                gnome-terminal \
-                ubuntu-desktop \
-                vnc4server \
-                nomacs \
-                firefox && \
-    apt remove -y nautilus && \
-    rm -rf /var/lib/apt/lists/*
-
-# pycharm
-RUN add-apt-repository ppa:viktor-krivak/pycharm -y && \
-    apt update -y && \
-    DEBIAN_FRONTEND=noninteractive \
-    apt install pycharm -y && \
+    apt install --no-install-recommends -y \
+    ttf-ubuntu-font-family \
+    firefox && \
     rm -rf /var/lib/apt/lists/*
 
 # sublime
@@ -65,6 +75,11 @@ RUN apt update -y && \
     DEBIAN_FRONTEND=noninteractive \
     sudo apt install -y sublime-text && \
     rm -rf /var/lib/apt/lists/*
+
+# Install tini as init
+ARG TINI_VERSION=v0.18.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
+RUN chmod +x /bin/tini
 
 FROM base as robot
 
@@ -82,6 +97,7 @@ RUN apt-get update -y && \
     ros-${ROS_DISTRO}-image-transport \
     ros-${ROS_DISTRO}-tf \
     ros-${ROS_DISTRO}-diagnostic-updater \
+    ros-${ROS_DISTRO}-desktop-full \
     ros-${ROS_DISTRO}-ddynamic-reconfigure && \
     rm -rf /var/lib/apt/lists/*
 
@@ -93,9 +109,6 @@ RUN mkdir /chickenbot_ws && \
 COPY catkin_ws /catkin_ws/
 RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; cd /catkin_ws; catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release'
 
-COPY ./config/screenrc /etc/
-COPY ./README.md /
-
 # locale and user
 RUN locale-gen en_US.UTF-8 && \
     ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
@@ -104,7 +117,12 @@ RUN locale-gen en_US.UTF-8 && \
     adduser ubuntu sudo && \
     chown -R ubuntu:ubuntu /home/ubuntu/
 
-USER ubuntu
+COPY ./etc/ /etc/
+COPY ./bin/xvfb.sh /usr/local/bin/xvfb.sh
+COPY ./bin/.gtkrc-2.0 /home/ubuntu/
+
+RUN chmod +x /usr/local/bin/xvfb.sh
+
 ENV HOME /home/ubuntu
 WORKDIR "/home/ubuntu"
 

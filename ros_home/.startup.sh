@@ -1,27 +1,34 @@
-#setting up vncserver
-# if [[ -e /tmp/.X0-lock && -e /tmp/.X11-unix/X0 ]]; then
-# 	rm -f /tmp/.X0-lock /tmp/.X11-unix/X0
-# fi
+#!/bin/bash
 
-rm -rf /tmp/.X0-lock /tmp/.X11-unix/X0
-# fi
-# if [[ -e /home/ubuntu/.vnc/*.pid && -e /home/ubuntu/.vnc/*.log ]]; then
-# 	rm -f /home/ubuntu/.vnc/*.pid /home/ubuntu/.vnc/*.log
-# fi
-
-# run 
-mkdir -p /home/tmp
-chown 1000:1000 /home/tmp
-mv /home/ubuntu/.bashrc.default /etc/bash.bashrc
-service ssh start
-ldconfig
-
-hn=$(cat /etc/hostname)
-if [ -x "$(command -v jupyterhub)" ]; then
-  mkdir -p .jupyter/$hn
-  chown ubuntu:ubuntu .jupyter
-  chown ubuntu:ubuntu .jupyter/$hn
-  su ubuntu sh -c "cd .jupyter/$hn && jupyterhub --url http://0.0.0.0:8000/jupyter/$hn --Spawner.notebook_dir=/home &"
+if [ -n "$VNC_PASSWORD" ]; then
+    su echo -n "$VNC_PASSWORD" > /.password1
+    x11vnc -storepasswd $(cat /.password1) /.password2
+    chmod 400 /.password*
+    sed -i 's/^command=x11vnc.*/& -rfbauth \/.password2/' /etc/supervisor/conf.d/supervisord.conf
+    export VNC_PASSWORD=
 fi
 
-su ubuntu sh -c 'vncserver :0 -geometry 1280x720 && tail -f /home/ubuntu/.vnc/*.log'
+if [ -n "$X11VNC_ARGS" ]; then
+    sed -i "s/^command=x11vnc.*/& ${X11VNC_ARGS}/" /etc/supervisor/conf.d/supervisord.conf
+fi
+
+if [ -n "$OPENBOX_ARGS" ]; then
+    sed -i "s#^command=/usr/bin/openbox.*#& ${OPENBOX_ARGS}#" /etc/supervisor/conf.d/supervisord.conf
+fi
+
+if [ -n "$RESOLUTION" ]; then
+    sed -i "s/1600x900/$RESOLUTION/" /usr/local/bin/xvfb.sh
+fi
+
+# home folder
+if [ ! -x "$HOME/.config/pcmanfm/LXDE/" ]; then
+    mkdir -p $HOME/.config/pcmanfm/LXDE/
+    ln -sf /usr/local/share/doro-lxde-wallpapers/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE/
+    chown -R $USER:$USER $HOME
+fi
+
+# clearup
+PASSWORD=
+HTTP_PASSWORD=
+
+exec /bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf
