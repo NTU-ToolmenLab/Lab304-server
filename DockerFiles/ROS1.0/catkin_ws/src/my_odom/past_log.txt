@@ -1,0 +1,202 @@
+commit f484cd9c0fd13efcb7f5cbb07ab6ccd795c74114
+Author: Peter_Tsai <Peter_Tsai@compal.com>
+Date:   Wed Oct 5 11:24:17 2016 +0800
+
+    Marge KSP3 changes
+    The major changes: app_server , add KSP3 paths and fine tune some planner parameters
+
+commit 953aeb0603492308f09ee725af2c23a3f84efd70
+Author: Peter_Tsai <Peter_Tsai@compal.com>
+Date:   Fri Aug 19 15:10:10 2016 +0800
+
+    [DEVELOP DWA] Add another trajectory rviz topic
+    1. [DEVELOP DWA] Add another trajectory rviz topic. Make sure the publish_traj_pc is true in the dwa config file
+    2. [DEVELOP STAGE] Add Stage launch file (Stage is a robot simulator)
+    3. [DEVELOP GLOBAL_PLANNER] Add using the nearest point as the middle point when obstacle is true
+    4. [DEVELOP MAP_SERVER] Add supporting original map yaml tag.
+
+commit d9dd9c1a5e44bb06169db015e6c9cf0c7139eeee
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Tue Aug 16 14:57:44 2016 +0800
+
+    [DEVELOP MY_ODOM] Save the robot position in a file(amcl_pose.yaml) for next time to re-location.
+
+commit 9003177c268177a37f84414677cb87dd22487488
+Author: steven_hsieh <steven_hsieh@compal.com>
+Date:   Fri Jul 29 13:48:14 2016 +0800
+
+    modified my_odom
+
+commit 3fd848b715a97b70d5bc1c6de1fbfdb82460ebe0
+Author: Peter_Tsai <Peter_Tsai@compal.com>
+Date:   Wed Jul 20 14:54:32 2016 +0800
+
+    [DEVELOP MY_ODOM] Add setting frame_id from launch
+    frame_id_odom(Default:"odom")
+    frame_id_base_link_tf(Default:"base_link")
+    frame_id_base_link_pub(Default:"base_link")
+
+commit d3402fd7fe67c78e3a780ac3a35d9942948ad2ca
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Wed Jul 6 17:56:22 2016 +0800
+
+    [DEVELOP MY_ODOM] Remove some verbose printf message.
+
+commit bda738289b97a2b1569137022e6a31149f814a43
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Thu Jun 30 20:05:09 2016 +0800
+
+    [ENHANCE MY_ODOM] To avoid warning message, change polling interval of printing message.
+
+commit 69ec8eee3b4b1c7125091f27d527c4fe18af81f3
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Mon Jun 27 14:36:59 2016 +0800
+
+    [DEVLEOP MY_ODOM]
+    1. Add argument to enable encode simulation
+    2. Fixed in-place rotation calculation formula.
+
+commit 35d9764bc14655a6d106ba89ec2236ad213f0d69
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Tue Jun 21 10:41:34 2016 +0800
+
+    [ENHANCE MY_ODOM] Rename my_odom_simulation.cpp -> my_odom_sim.cpp
+
+commit 7943ea34f019ef750c005fa2e98dfdbaf24dfcca
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Tue Jun 21 10:36:38 2016 +0800
+
+    [ENHANCE MY_ODOM] Remove unused MACRO.
+
+commit 3426b3f14cb09ab63d3fda544ddfafa4fee22f1b
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Tue Jun 21 10:33:39 2016 +0800
+
+    [DEVELOP MY_ODOM] 1. Add encode simulation to my_odom. 2. Add config to enable amcl.
+
+commit a2af23ac9f48b08d44a6327d8814d9db4d1b49a1
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Fri Jun 17 15:22:08 2016 +0800
+
+    [FIXBUG MY_ODOM] my_odom shouldn't start calculating the encode when it hasn't publish value.
+
+commit 504b1930e33f762c7b186b4a5e74db6418895f8e
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Mon Jun 6 16:57:32 2016 +0800
+
+    [FIXBUG MY_ODOM] Some ROS distribution cannot get parameters with non-private nodeHandler.
+
+commit d4e533e666deda135eec71b6988a74754f06b707
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Mon Jun 6 15:44:39 2016 +0800
+
+    [FIXBUG MY_ODOM] Fixed topic namespace problem.
+
+commit ccba869755f3db542ca0e9bae447bc24ef4b71e5
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Fri Jun 3 15:28:57 2016 +0800
+
+    [DEVELOP MY_ODOM] Assign my_odom setting by node parameter.
+
+commit f86ba463190b4bdb2037c568871c9d51195712d0
+Author: Steven_Hsieh <steven_hsieh@compal.com>
+Date:   Thu May 19 10:48:52 2016 +0800
+
+    parameters modified
+
+commit 3c5d0c8d8e53bdb0ee93cf4370894cc98b95db52
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Thu May 12 13:37:10 2016 +0800
+
+    [DEVLEOP MY_ODOM] Add simulation function to my_odom for observating path control.
+
+commit 00bee45d719c72733d623b55e581fe508c02e50c
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Tue May 10 09:26:16 2016 +0800
+
+    [FIXBUG MY_ODOM] Fixed encoder counter loses.
+
+commit 7331c0f35fdf8a5528f6bb40317870e43e286bfc
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Tue May 10 09:18:50 2016 +0800
+
+    [FIXBUG MY_ODOM] my_odom should publish velocity in /odom, rather than moving distance.
+
+commit 98a83ded5921399ec8e0e351a94c1c4313133ef6
+Author: Steven_Hsieh <steven_hsieh@compal.com>
+Date:   Thu Apr 21 10:43:39 2016 +0800
+
+    add AGV odom node
+
+commit 2a56b7389ea7510dcef85fb0df2c95d69caa7ed4
+Author: Steven_Hsieh <steven_hsieh@compal.com>
+Date:   Thu Apr 21 10:35:17 2016 +0800
+
+    modify my_odom_node backword
+
+commit a2edea730e2431bb0feb305d932be96cce165b74
+Merge: fa0a0f5 957f731
+Author: Steven_Hsieh <steven_hsieh@compal.com>
+Date:   Mon Apr 18 15:50:28 2016 +0800
+
+    Merge branch 'master' of 192.168.100.104:/SrcGit/compal_agv_ros_git
+    
+    Conflicts:
+    	src/my_odom/src/my_odom_node.cpp
+
+commit fa0a0f56a5a67c1e20b3412b55837ff080e5976e
+Author: Steven_Hsieh <steven_hsieh@compal.com>
+Date:   Mon Apr 18 15:49:04 2016 +0800
+
+    my_odom modify
+
+commit 957f7319f09b451b25f9f3e4bebaaf044a13bf89
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Fri Apr 15 16:57:09 2016 +0800
+
+    [FIXBUG ODOM] Fixed incompatible data type, which can cause motor counter error.
+
+commit e0b84ea050df4d6cfccfcf6452908245037cc58c
+Author: Grace <GraceRU_compal.com>
+Date:   Fri Mar 25 18:12:49 2016 +0800
+
+    add back function
+    add find_circle, modified my_odom, back_and_forth
+
+commit 9632f9643f20df88eacd57f78d81ce9135dd7174
+Author: Grace <GraceRU_compal.com>
+Date:   Fri Mar 18 17:46:18 2016 +0800
+
+    1. modified my_odom_node (deltax,deltay define error)
+    2. modified params about amcl & base_move
+    3. new map
+
+commit 4efaf3d83fa60a20612fb14f2a033ab47c2e7697
+Author: Jonathan Tseng <Jonathan_Tseng@compal.com>
+Date:   Thu Mar 10 21:23:36 2016 -0800
+
+    [DEVELOP ODOM] Update count per rotation to 714.
+
+commit 4db6109eccf657b521171cd6eef332359a067547
+Author: Jonathan Tseng <Jonathan_Tseng@compal.com>
+Date:   Thu Mar 10 20:56:46 2016 -0800
+
+    [DEVELOP ODOM] Since the detect on motor decode chip, the count per rotation is changed to 357.
+
+commit c73cb465a8174d56c15d7eb2178d86bd32146ea7
+Author: Jonathan Tseng <Jonathan_Tseng@compal.com>
+Date:   Thu Feb 25 01:20:58 2016 -0800
+
+    [DEVELOP] Improve odometry accuracy.
+
+commit b0c22a8633452d3fdbe869f0973dd6e5a6b5f545
+Author: Jonathan Tseng <Jonathan_Tseng@compal.com>
+Date:   Tue Feb 23 03:33:02 2016 -0800
+
+    [DEVELOP SLAM] Add wheel encoder as a reference for tf and odometry.
+
+commit 9e4be803e564b80280814dda5df1054674a2620d
+Author: jonathan <Jonathan_Tseng@compal.com>
+Date:   Mon Feb 22 14:10:11 2016 +0800
+
+    [DEVELOP] Add package my_odom to improve localization when using a map.
